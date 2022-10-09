@@ -4,6 +4,7 @@
 *::after,
 *::before {
   box-sizing: border-box;
+  /* border: 1px solid blue; */
 }
 
 body {
@@ -11,20 +12,23 @@ body {
   padding: 0;
   /* background-image: radial-gradient( circle farthest-corner at 10% 20%,  rgba(37,145,251,0.98) 0.1%, rgba(0,7,128,1) 99.8% ); */
   min-height: 100vh;
+  /* background: red; */
+  background-color: rgb(17 24 39);
 }
 
 :root {
-  --cell-size: 10vmax;
+  --cell-size: 12vmax;
   --mark-size: calc(var(--cell-size) * 0.9);
 }
 
 .gameContainer {
-  width: 100vw;
-  /* height: 90vh; */
+  min-height: 80vh;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  /* background-color: green; */
+  padding: 0 2rem 2rem 2rem;
 }
 
 .title {
@@ -34,7 +38,8 @@ body {
   font-weight: bold;
   letter-spacing: 1px;
   font-family: 'Gemunu Libre', sans-serif;
-  /* color: white; */
+  margin-top: 1rem;
+  color: white;
 
 }
 
@@ -46,11 +51,19 @@ body {
   align-items: center;
   grid-template-columns: repeat(3, auto);
   position: relative;
+  /* background-color: yellow; */
+  /* From https://css.glass */
+background: rgba(255, 255, 255, 0.15);
+border-radius: 5px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(5.9px);
+-webkit-backdrop-filter: blur(5.9px);
+border: 1px solid rgba(255, 255, 255, 0.11);
 }
 
 .line {
-  background-color: black;
-  height: 3px;
+  background-color: white;
+  height: 8px;
   position: absolute;
   border-radius: 3rem;
 }
@@ -64,7 +77,7 @@ body {
     width: 0;
   }
   to {
-    width: 100%;
+    width: 99%;
   }
 }
 
@@ -77,7 +90,7 @@ body {
   align-items: center;
   position: relative;
   cursor: pointer;
-  /* border-color: white; */
+  border-color: white;
 }
 
 .cell:first-child,
@@ -169,20 +182,30 @@ body {
 .board.o .cell:not(.x):not(.o):hover::before {
   width: var(--mark-size);
   height: var(--mark-size);
-  background-color: black;
+  /* background-color: black; */
+  background-color: transparent;
+  border: 25px solid lightgrey;
 }
 
-.board.o .cell:not(.x):not(.o):hover::before {
+.cell.o::before{
+  border-color: #000;
+}
+
+/* .board.o .cell:not(.x):not(.o):hover::before {
   background-color: lightgrey;
-}
-
-.cell.o::after,
+} */
+/* .cell.o::after,
 .board.o .cell:not(.x):not(.o):hover::after {
   width: calc(var(--mark-size) * 0.7);
   height: calc(var(--mark-size) * 0.7);
   background-color: white;
-
-}
+  background: rgba(255, 255, 255, 0.15);
+border-radius: 5px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(5.9px);
+-webkit-backdrop-filter: blur(5.9px);
+border: 1px solid rgba(255, 255, 255, 0.11);
+} */
 
 .winning-message {
   display: none;
@@ -230,7 +253,7 @@ body {
   justify-content: center;
   align-items: center;
   color: white;
-  font-size: 5rem;
+  font-size: 3rem;
   flex-direction: column;
   gap: 1rem;
 }
@@ -254,7 +277,7 @@ body {
 .options {
   display: flex;
   justify-content: end;
-  padding: 1rem;
+  padding: 1rem 1rem 0 1rem;
   gap: 1rem;
 }
 .options .btn {
@@ -272,4 +295,34 @@ body {
 
 .options .btn:hover{
   filter: invert(1);
+}
+
+@media (max-width: 768px) {
+  .options{
+    justify-content: center;
+  }
+
+  .cell.o::before,
+  .board.o .cell:not(.x):not(.o):hover::before {
+    border: 15px solid lightgrey;
+  }
+
+  .cell.o::before{
+    border-color: #000;
+  }
+
+  .choice-message{
+    padding: 1rem;
+    text-align: center;
+    font-size: 2.5rem;
+  }
+
+  .choiceButton{
+    font-size: 2rem;
+    padding: 1rem 3rem;
+    border-radius: 0.2em;
+    cursor: pointer;
+    transition: filter 0.2s ease-in-out;
+  }
+  
 }
