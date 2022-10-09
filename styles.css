@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Gemunu+Libre:wght@700&display=swap');
+
 *,
 *::after,
 *::before {
@@ -8,7 +9,7 @@
 body {
   margin: 0;
   padding: 0;
-  background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+  /* background-image: radial-gradient( circle farthest-corner at 10% 20%,  rgba(37,145,251,0.98) 0.1%, rgba(0,7,128,1) 99.8% ); */
   min-height: 100vh;
 }
 
@@ -33,6 +34,7 @@ body {
   font-weight: bold;
   letter-spacing: 1px;
   font-family: 'Gemunu Libre', sans-serif;
+  /* color: white; */
 
 }
 
@@ -50,18 +52,19 @@ body {
   background-color: black;
   height: 3px;
   position: absolute;
+  border-radius: 3rem;
 }
 
 .line.animate {
-  animation: line-animate 0.5s forwards linear;
+  animation: line-animate 0.5s forwards ease-in-out;
 }
 
 @keyframes line-animate {
   from {
-    width: 0%;
+    width: 0;
   }
   to {
-    width: 110%;
+    width: 100%;
   }
 }
 
@@ -74,6 +77,7 @@ body {
   align-items: center;
   position: relative;
   cursor: pointer;
+  /* border-color: white; */
 }
 
 .cell:first-child,
@@ -102,6 +106,24 @@ body {
 .cell.x::before,
 .cell.x::after {
   background-color: black;
+}
+
+.cell.x.animate::before,
+.cell.x.animate::after {
+  animation: mark-animate 0.3s forwards ease-in-out;
+}
+
+.cell.o.animate::before,
+.cell.o.animate::after {
+  animation: mark-animate 0.2s forwards ease-in-out;
+}
+
+@keyframes mark-animate {
+  from{
+    opacity: 0;
+  }to{
+    opacity: 100;
+  }
 }
 
 .board.x .cell:not(.x):not(.o):hover::before,
@@ -158,8 +180,8 @@ body {
 .board.o .cell:not(.x):not(.o):hover::after {
   width: calc(var(--mark-size) * 0.7);
   height: calc(var(--mark-size) * 0.7);
-  /* background-color: white; */
-  background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+  background-color: white;
+
 }
 
 .winning-message {
@@ -195,6 +217,40 @@ body {
   display: flex;
 }
 
+.choice-message{
+  display: none;
+  /* display: flex; */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom:0;
+  background-color: rgba(0, 0, 0, 0.9);
+  align-items: center;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 5rem;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.choice-message.show{
+    display: flex;
+}
+
+.choiceButton{
+  font-size: 3rem;
+  padding: 1rem 4rem;
+  border-radius: 0.2em;
+  cursor: pointer;
+  transition: filter 0.2s ease-in-out;
+}
+
+.choiceButton:hover{
+  filter: invert(1);
+}
+
 .options {
   display: flex;
   justify-content: end;
@@ -208,6 +264,12 @@ body {
   letter-spacing: 1px;
   border:none;
   cursor: pointer;
-  border-radius: 10px;
-  background: rgba(0, 0, 0, 0.058);
+  border-radius: 5px;
+  background: rgba(0, 0, 0  , 0.8);
+  color: rgb(255, 255, 255);
+  transition: filter 0.2s ease-in-out;
+}
+
+.options .btn:hover{
+  filter: invert(1);
 }

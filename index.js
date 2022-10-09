@@ -16,13 +16,15 @@ const WINNING_COMBINATIONS = [
 const cellElements = document.querySelectorAll("[data-cell]");
 const mode_btn = document.querySelector("#mode_btn");
 const board = document.getElementById("board");
-// const cells = document.querySelectorAll('.cell')
 const line = document.querySelector(".line");
 const winningMessageElement = document.getElementById("winningMessage");
-const winningMessageTextElement = document.querySelector(
-  "[data-winning-message-text]"
-);
+const winningMessageTextElement = document.querySelector("[data-winning-message-text]");
+const choiceMessageElement = document.getElementById('choiceMessage');
 const resetButton = document.getElementById("resetButton");
+const choiceButton = document.getElementsByClassName('choiceButton');
+const xButton = document.getElementById('xButton');
+const oButton = document.getElementById('oButton');
+
 let circleTurn;
 
 startGame();
@@ -40,15 +42,23 @@ const CPUMove = () => {
   let move;
   while (!found) {
     move = Math.floor(Math.random() * 9);
-    if (
-      !cellElements[move].classList.contains("x") &&
-      !cellElements[move].classList.contains("o")
-    ) {
+    if (!cellElements[move].classList.contains("x") && !cellElements[move].classList.contains("o")) {
       found = true;
     }
   }
   handleClickOpt(cellElements[move]);
 };
+
+xButton.addEventListener('click', () => {
+  CPU_CHOICE = O_CLASS;
+  choiceMessageElement.classList.remove('show');
+})
+
+oButton.addEventListener('click', () => {
+    CPU_CHOICE = X_CLASS;
+    CPUMove();
+    choiceMessageElement.classList.remove('show');
+})  
 
 function startGame() {
   circleTurn = false;
@@ -62,20 +72,23 @@ function startGame() {
   line.classList.remove("animate");
   winningMessageElement.classList.remove("show");
   if (CPU_MODE) {
-    try {
-      let choice = prompt("Select Your Side").toUpperCase();
-      if (choice === "X") {
-        CPU_CHOICE = O_CLASS
-      } else if (choice === "O") {
-        CPU_CHOICE = X_CLASS
-        CPUMove();
-      } else {
-        startGame();
-      }
-    } catch (err) {
-      console.error(err);
-      startGame();
-    }
+    choiceMessageElement.classList.add('show');
+
+ 
+    // try {
+    //   let choice = prompt("Select Your Side").toUpperCase();
+    //   if (choice === "X") {
+    //     CPU_CHOICE = O_CLASS
+    //   } else if (choice === "O") {
+    //     CPU_CHOICE = X_CLASS
+    //     CPUMove();
+    //   } else {
+    //     startGame();
+    //   }
+    // } catch (err) {
+    //   console.error(err);
+    //   startGame();
+    // }
   }
 }
 
@@ -144,6 +157,7 @@ function isDraw() {
 
 function placeMark(cell, currentClass) {
   cell.classList.add(currentClass);
+  cell.classList.add('animate');
 }
 
 function swapTurns() {
