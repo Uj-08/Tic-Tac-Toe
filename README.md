@@ -1,3 +1,3 @@
 # Tic-Tac-Toe
 Fully Functional Tic Tac Toe Game
-<br />Link: https://uj-08.github.io/TicTacToe/
+<br />Link: https://uj-08.github.io/Tic-Tac-Toe/
